@@ -1,0 +1,43 @@
+.mat-button, .mat-flat-button, .mat-raised-button, .mat-stroked-button {
+    border-radius: 6px !important;
+}
+
+
+.btn-custom {
+    color: #FFF !important;
+
+    &.btn-sm {
+        font-size: .7rem;
+        height: 32px;
+        min-height: 32px;
+        line-height: 2 !important;
+    }
+
+    &.btn-rose {
+        background: rgb(244, 63, 94) !important;
+    }
+
+    &.btn-brand {
+        background: rgb(33, 150, 243) !important;
+    }
+
+    &.btn-indigo {
+        background: rgb(13, 148, 136) !important;
+    }
+
+    &.btn-purple {
+        background: rgb(147, 51, 234) !important;
+    }
+
+    &.btn-amber {
+        background: rgb(245, 158, 11) !important;
+    }
+
+    &.btn-danger {
+        background: rgb(220, 38, 38) !important;
+    }
+
+    &.btn-dark {
+        background: rgb(30, 41, 59) !important;
+    }
+}

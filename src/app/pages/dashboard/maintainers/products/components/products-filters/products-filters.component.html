@@ -1,0 +1,32 @@
+<form [formGroup]="form" class="custom-mat-form">
+    <div class="grid md:grid-cols-8 sm:grid-cols-4 gap-x-6 w-full">
+        <div class="md:col-span-3 sm:col-span-2">
+            <mat-form-field appearance="outline" class="flex-auto gt-xs:pr-3 w-full">
+                <mat-select [placeholder]="'Tipo de producto'" formControlName="productTypeId">
+                    <!-- <mat-option 
+                        (click)="onChangeProductType(item)"
+                        *ngFor="let item of (productTypeList$ | async)"
+                        [value]="item.Id">{{ item.ItemName }}</mat-option> -->
+                    <mat-option 
+                        (click)="onChangeProductType(item)"
+                        *ngFor="let item of productTypeList"
+                        [value]="item.Id">{{ item.ItemName }}</mat-option>
+                </mat-select>
+            </mat-form-field>        
+        </div>
+        <div class="md:col-span-2 sm:col-span-2">
+            <div class="flex flex-shrink-0 items-center mt-1">
+                <button
+                    type="button"
+                    class="btn-custom btn-indigo"
+                    (click)="exportData()" 
+                    mat-flat-button>
+                    <mat-icon
+                        class="icon-size-5 mr-2"
+                        [svgIcon]="'heroicons_outline:cloud-download'"></mat-icon>
+                    Exportar
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

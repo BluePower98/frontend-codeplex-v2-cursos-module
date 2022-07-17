@@ -1,0 +1,32 @@
+<dropzone 
+    [useDropzoneClass]="false"
+    [config]="config"></dropzone>
+
+<div id="template-preview" style="display: none;">
+    <div class="dz-preview dz-image-preview">
+        <div class="dz-image">
+            <img data-dz-thumbnail />
+            <img class="dz-thumbnail-image" style="display: none;" />
+        </div>
+        <div class="dz-details">
+            <div class="dz-size">
+                <span data-dz-size></span>
+            </div>
+            <div class="dz-filename">
+                <span data-dz-name></span>
+            </div>
+        </div>
+        <div class="dz-success-mark"><span></span></div>
+        <div class="dz-error-mark"><span></span></div>
+        <div class="dz-error-message"><span data-dz-errormessage></span></div>
+        <div style="text-align: center;position: relative; margin-left: -2px;">
+            <button 
+                type="button"
+                class="dz-view-image" 
+                mat-stroked-button>
+                <mat-icon class="icon-size-4 mr-2" [svgIcon]="'heroicons_outline:search'"></mat-icon>
+                Ver archivo
+            </button>
+        </div>
+    </div>
+</div>

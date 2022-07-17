@@ -1,0 +1,158 @@
+<fuse-card
+    [formGroup]="form"
+    class="card-simple flex-col p-8 sm:py-12 sm:px-10 lg:rounded-none lg:rounded-l w-full">
+    <div class="grid md:grid-cols-8 sm:grid-cols-4 gap-x-6 w-full">
+        <div class="md:col-span-2 sm:col-span-2">
+            <mat-form-field 
+                appearance="outline" 
+                class="flex-auto gt-xs:pr-3 w-full">
+                <mat-select 
+                    [placeholder]="'Zonas'" 
+                    formControlName="idzona" 
+                    name="idzona">
+                    <mat-option *ngFor="let item of zones" [value]="item.Id">
+                        {{ item.ItemName }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="md:col-span-2 sm:col-span-2">
+            <ng-select 
+                #measuresSelect
+                placeholder="Medidas"
+                appendTo="body"
+                [items]="measures" 
+                bindLabel="ItemName"
+                bindValue="Id" 
+                [ngClass]="{'ng-invalid': f.idmedida.errors && f.idmedida.touched}"
+                formControlName="idmedida">
+                <ng-template ng-footer-tmp>
+                    <button
+                        type="button"
+                        mat-flat-button
+                        (click)="openModalMeasures(); measuresSelect.close();"
+                        class="btn-custom btn-sm btn-brand mt-2">
+                        <mat-icon
+                            class="icon-size-5 mr-2"
+                            [svgIcon]="'heroicons_solid:plus'"></mat-icon>
+                        AGREGAR
+                    </button>
+                </ng-template>
+            </ng-select>
+        </div>
+
+        <div class="md:col-span-2 sm:col-span-2">
+            <mat-form-field 
+                appearance="outline" 
+                class="flex-auto gt-xs:pr-3 w-full">
+                <mat-select 
+                    [placeholder]="'Tipo de Precio'" 
+                    formControlName="idtipoprecio" 
+                    name="idtipoprecio">
+                    <mat-option *ngFor="let item of pricingTypes" [value]="item.Id">
+                        {{ item.ItemName }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="md:col-span-2 sm:col-span-2">
+            <mat-form-field appearance="outline" class="flex-auto gt-xs:pr-3 w-full">
+                <mat-label>Código de Barras</mat-label>
+                <input 
+                    matInput 
+                    type="text" 
+                    placeholder="codigo de barras" 
+                    name="codigoBarra" 
+                    formControlName="codigoBarra" />
+                <button 
+                    type="button" 
+                    role="button" 
+                    (click)="showBarcodeScanner()" 
+                    mat-icon-button 
+                    matSuffix>
+                    <mat-icon svgIcon="mat_outline:qr_code_scanner"></mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="grid md:grid-cols-8 sm:grid-cols-4 gap-x-6 w-full">
+        <div class="md:col-span-2 sm:col-span-2">
+            <mat-form-field appearance="outline" class="flex-auto gt-xs:pr-3 w-full">
+                <mat-label>CANT.</mat-label>
+                <button 
+                    type="button" 
+                    [disabled]="1 >= this.f.cantidadMinVen.value" 
+                    mat-icon-button 
+                    (click)="onChangeQuantity('decrement')"
+                    matPrefix>
+                    <mat-icon class="icon-display">remove_circle_outline</mat-icon>
+                </button>
+                <input 
+                    matInput 
+                    class="text-center" 
+                    type="number" 
+                    min="0" 
+                    name="cantidadMinVen-{{index}}" 
+                    formControlName="cantidadMinVen" 
+                    min="1" />
+                <button 
+                    type="button" 
+                    (click)="onChangeQuantity('increment')"
+                    mat-icon-button 
+                    matSuffix>
+                    <mat-icon class="icon-display primary">add_box</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+        <div class="md:col-span-2 sm:col-span-2">
+            <mat-form-field appearance="outline" class="flex-auto gt-xs:pr-3 w-full">
+                <mat-label>Precio de Venta</mat-label>
+                <input 
+                    matInput 
+                    type="text" 
+                    placeholder="precioVenta" 
+                    [errorStateMatcher]="errorMatcher" 
+                    name="precioVenta" 
+                    formControlName="precioVenta" />
+
+                <mat-checkbox 
+                    name="incluidoIgv"
+                    formControlName="incluidoIgv"
+                    matSuffix
+                    class="checkbox-incluidoIgv">
+                    <b class="h6">INC. IGV </b>
+                </mat-checkbox>
+                    
+                <mat-error *ngIf="f.precioVenta.errors">
+                    <span *ngIf="f.precioVenta.errors.required">Campo requerido.</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="md:col-span-2 sm:col-span-2">
+            <div class="flex items-center h-full position-relative-top-item">
+                <mat-checkbox name="defecto" formControlName="defecto">
+                    <b class="h6">DEFECTO </b>
+                </mat-checkbox>
+            </div>
+        </div>
+
+        <div *ngIf="showDeleteButton" class="md:col-span-2 sm:col-span-2">
+            <div class="flex items-center justify-center h-full position-relative-top-item">
+                <button
+                    type="button"
+                    mat-flat-button
+                    (click)="removePrice()"
+                    class="btn-custom btn-danger btn-delete-zone w-full">
+                    <mat-icon
+                    class="icon-size-5 mr-2"
+                    [svgIcon]="'heroicons_solid:trash'"></mat-icon>
+                    ELIMINAR
+                </button>
+            </div>
+        </div>
+    </div>
+</fuse-card>

@@ -1,0 +1,16 @@
+.module-title {
+    margin-left: 10px;
+
+    h2 {
+        font-size: 1rem;
+        font-weight: 500;
+    }
+}   
+
+@media screen and (min-width: 476px) {
+    .module-title {
+        h2 {
+            font-size: 1.25rem;
+        }
+    }   
+}

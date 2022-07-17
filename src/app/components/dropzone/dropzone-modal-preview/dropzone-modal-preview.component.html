@@ -1,0 +1,16 @@
+<div class="mat-dialog-header">
+    <h2 class="mb-2" mat-dialog-title>
+        {{ file.name }}
+    </h2>
+    <button mat-icon-button mat-dialog-close>
+        <mat-icon [svgIcon]="'heroicons_outline:x'"></mat-icon>
+    </button>
+</div>
+
+<mat-dialog-content class="p-5">
+    <div *ngIf="dataUrl">
+        <img class="image-preview" *ngIf="isImage" [src]="dataUrl | domSeguro" crossorigin="anonymous" />
+    
+        <iframe title="PDF" *ngIf="!isImage" [src]="dataUrl | domSeguro"></iframe>
+    </div>      
+</mat-dialog-content>

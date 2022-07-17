@@ -1,0 +1,21 @@
+<div class="mat-dialog-header">
+    <h2 class="mb-2" mat-dialog-title>
+        Medidas
+    </h2>
+    <button mat-icon-button (click)="closeModal()">
+        <mat-icon [svgIcon]="'heroicons_outline:x'"></mat-icon>
+    </button>
+</div>
+
+<mat-dialog-content class="p-5">
+    <app-measures-list [data]="data"></app-measures-list>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+    <mat-paginator 
+        [length]="measuresListComponent.measures | filtrar: 'sunatcodigo' : measuresListComponent.filters.sunatcodigo | filtrar : 'descripcion' : measuresListComponent.filters.descripcion | length"
+        [pageSize]="measuresListComponent.paginationConfig.perPage"
+        [pageSizeOptions]="measuresListComponent.paginationConfig.length"
+        (page)="measuresListComponent.handlePage($event)">
+    </mat-paginator>
+</mat-dialog-actions>

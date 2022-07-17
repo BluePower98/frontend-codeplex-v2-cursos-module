@@ -1,0 +1,18 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Main -->
+    <div class="flex-auto p-4 sm:p-4 sm:pt-4">
+        <div class="flex-auto">
+            
+            <div class="flex flex-col p-8 pb-4 bg-card rounded-2xl shadow overflow-hidden">
+                <app-products-filters 
+                    (onChangeFilter)="productsListComponent.onChangeProductType($event)">
+                </app-products-filters>
+
+                <app-products-list 
+                    (addForm)="add()"
+                    (editForm)="onEdit($event)"
+                    (delete)="onDelete($event)"></app-products-list>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+<table 
+    datatable
+    [dtOptions]="dtOptions"
+    class="stripe mb-2" style="width: 100%;">
+    <tfoot>
+        <tr>
+            <th><input type="text" placeholder="Search ID" name="search-id"/></th>
+            <th><input type="text" placeholder="Search first name" name="search-first-name"/></th>
+            <th><input type="text" placeholder="Search last name" name="search-last-name"/></th>
+            <th>&nbsp;</th>
+        </tr>
+    </tfoot>
+</table>
+
+<ng-template #dtActions let-data="data">
+    <div class="dt-row-actions">
+        <button mat-icon-button (click)="onEdit(data)">
+            <mat-icon [svgIcon]="'heroicons_outline:pencil-alt'"></mat-icon>
+        </button>
+        <button mat-icon-button (click)="onDelete(data)">
+            <mat-icon [svgIcon]="'heroicons_outline:trash'"></mat-icon>
+        </button>
+    </div>
+</ng-template>

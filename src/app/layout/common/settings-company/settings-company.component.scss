@@ -1,0 +1,20 @@
+ul.settings-company {
+    li {
+        line-height: 1.5;
+
+        button.mat-flat-button {
+            justify-content: flex-start !important;
+
+            .mat-button-wrapper {
+                
+                justify-content: flex-start !important;
+            }
+        }
+    }
+}
+
+mat-selection-list.list-selection {
+    mat-list-option.mat-list-single-selected-option {
+        background: none !important;
+    }
+}

@@ -1,0 +1,13 @@
+:root {
+    --autocomplete-height: 36px;
+}
+
+.ng-autocomplete {
+    .autocomplete-container {
+        height: var(--autocomplete-height);
+
+        input[type="text"] {
+            height: var(--autocomplete-height);
+        }
+    }
+}

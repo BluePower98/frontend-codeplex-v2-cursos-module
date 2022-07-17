@@ -1,0 +1,43 @@
+<div class="flex flex-col flex-auto items-center sm:justify-center min-w-0">
+    <div class="w-full sm:w-auto py-8 px-4 sm:p-12 sm:rounded-2xl sm:shadow sm:bg-card">
+        <div class="w-full max-w-80 sm:w-80 mx-auto sm:mx-0">
+            <!-- Title -->
+            <div class="mt-8 text-4xl font-extrabold tracking-tight leading-tight">Validar acceso</div>
+
+            <!-- form -->
+            <form
+                class="mt-8"
+                [formGroup]="form"
+                #validAccessNgForm="ngForm">
+
+                <!-- Email field -->
+                <mat-form-field class="w-full">
+                    <mat-label>Token</mat-label>
+                    <input
+                        id="token"
+                        matInput
+                        [formControlName]="'token'">
+                    <mat-error *ngIf="form.get('token').hasError('required')">
+                        Token is required
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Submit button -->
+                <button
+                    class="fuse-mat-button-large w-full mt-3"
+                    mat-flat-button
+                    [color]="'primary'"
+                    [disabled]="form.disabled"
+                    (click)="validate()">
+                    <span *ngIf="!form.disabled">
+                        Verificar
+                    </span>
+                    <mat-progress-spinner
+                        *ngIf="form.disabled"
+                        [diameter]="24"
+                        [mode]="'indeterminate'"></mat-progress-spinner>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

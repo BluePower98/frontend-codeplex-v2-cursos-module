@@ -1,0 +1,166 @@
+<button
+    type="button"
+    mat-flat-button
+    (click)="addLine()"
+    class="btn-custom btn-brand mb-4">
+    <mat-icon
+        class="icon-size-5 mr-2"
+        [svgIcon]="'heroicons_solid:plus'"></mat-icon>
+    AGREGAR
+</button>
+
+<form [formGroup]="form">
+
+    <table class="table w-full">
+        <thead>
+            <tr>
+                <th>TIPO</th>
+                <th>CÓDIGO</th>
+                <th>DESCRIPCIÓN</th>
+                <th>ACCIONES</th>
+            </tr>
+            <tr>
+                <ng-container [ngTemplateOutlet]="tplFilters"></ng-container>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of lines | filtrar: 'Destipoproductos' : filters.Destipoproductos | filtrar: 'codigo' : filters.codigo | filtrar: 'descripcion' : filters.descripcion | paginate: paginationConfig.perPage: paginationConfig.page; let i = index">
+                <ng-container *ngIf="cellEditRow === i; else elseTemplate">
+                    <ng-container 
+                        [ngTemplateOutlet]="tplForm"
+                        [ngTemplateOutletContext]="{i: i}" ></ng-container>
+                </ng-container>
+                <ng-template #elseTemplate>
+                    <ng-container 
+                        [ngTemplateOutlet]="tplList"
+                        [ngTemplateOutletContext]="{item: item, i: i}" ></ng-container>
+                </ng-template>
+            </tr>
+        </tbody>
+    </table>
+</form>
+
+
+<ng-template #itemTemplate let-item>
+    <a [innerHTML]="item.ItemName"></a>
+</ng-template>
+
+<ng-template #tplFilters>
+    <th>
+        <ng-autocomplete 
+            [data]="lines | group: 'Destipoproductos'"
+            [initialValue]=""
+            [searchKeyword]="'ItemName'"
+            name="Destipoproductos"
+            (inputCleared)="onClearFilter('Destipoproductos')"
+            placeHolder="Buscar tipo"
+            (inputChanged)="onChangeFilter($event, 'Destipoproductos')"
+            (selected)="onSelectFilter($event, 'Destipoproductos')"
+            [itemTemplate]="itemTemplate">
+        </ng-autocomplete>
+    </th>
+    <th>
+        <ng-autocomplete 
+            [data]="lines | group: 'codigo'"
+            [initialValue]=""
+            [searchKeyword]="'ItemName'"
+            name="codigo"
+            (inputCleared)="onClearFilter('codigo')"
+            placeHolder="Buscar codigo"
+            (inputChanged)="onChangeFilter($event, 'codigo')"
+            (selected)="onSelectFilter($event, 'codigo')"
+            [itemTemplate]="itemTemplate">
+        </ng-autocomplete>
+    </th>
+    <th>
+        <ng-autocomplete 
+            [data]="lines | group:'descripcion'"
+            [initialValue]=""
+            [searchKeyword]="'ItemName'"
+            name="descripcion"
+            (inputCleared)="onClearFilter('descripcion')"
+            placeHolder="Buscar linea"
+            (inputChanged)="onChangeFilter($event, 'descripcion')"
+            (selected)="onSelectFilter($event, 'descripcion')"
+            [itemTemplate]="itemTemplate">
+        </ng-autocomplete>                        
+    </th>
+    <th>&nbsp;</th>
+</ng-template>
+
+<ng-template #tplForm [formGroup]="form" let-index="i">
+    <td>
+        <ng-select 
+            [placeholder]="'Tipo de Producto'"
+            [items]="productTypes"
+            bindLabel="ItemName"
+            bindValue="Id"
+            formControlName="idtipoproducto"
+            name="idtipoproducto"
+            (change)="onChangeProductType($event)">
+        </ng-select>
+
+        <mat-error *ngIf="f.idtipoproducto.errors">
+            <span *ngIf="f.idtipoproducto.errors.required">Campo requerido.</span>
+        </mat-error>
+    </td>
+    <td class="custom-mat-form">
+        <mat-form-field appearance="outline">
+            <mat-label>Código</mat-label>
+            <input
+                matInput
+                [errorStateMatcher]="errorMatcher" 
+                type="text"
+                name="codigo"
+                formControlName="codigo" />
+
+            <mat-error *ngIf="f.codigo.errors">
+                <span *ngIf="f.codigo.errors.required">Campo requerido.</span>
+            </mat-error>
+        </mat-form-field>
+    </td>
+    <td class="custom-mat-form">
+        <mat-form-field appearance="outline">
+            <mat-label>Descripción</mat-label>
+            <input 
+                matInput
+                [errorStateMatcher]="errorMatcher"
+                type="text"
+                name="descripcion"
+                formControlName="descripcion" />
+            <mat-error *ngIf="f.descripcion.errors">
+                <span *ngIf="f.descripcion.errors.required">Campo requerido.</span>
+            </mat-error>
+        </mat-form-field>
+    </td>
+    <td class="text-center">
+        <button 
+            type="button"
+            mat-mini-fab
+            (click)="addOrEdit()"
+            class="btn-custom btn-indigo">
+            <mat-icon [svgIcon]="'heroicons_outline:check'"></mat-icon>
+        </button>
+        <button 
+            type="button"
+            (click)="cancelLine(index)"
+            mat-mini-fab
+            class="btn-custom btn-danger ml-3">
+            <mat-icon [svgIcon]="'heroicons_outline:x'"></mat-icon>
+        </button>
+    </td>
+</ng-template>
+
+<ng-template #tplList let-item="item" let-index="i">
+    <td>{{ item?.Destipoproductos }}</td>
+    <td>{{ item?.codigo }}</td>
+    <td>{{ item?.descripcion }}</td>
+    <td class="text-center">
+        <button type="button" mat-icon-button (click)="editLine(item, index)">
+            <mat-icon [svgIcon]="'heroicons_outline:pencil-alt'"></mat-icon>
+        </button>
+        <button type="button" mat-icon-button (click)="deleteLine(item, index)">
+            <mat-icon [svgIcon]="'heroicons_outline:trash'"></mat-icon>
+        </button>
+    </td>
+</ng-template>

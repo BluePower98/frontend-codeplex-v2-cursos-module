@@ -1,0 +1,25 @@
+:root {
+    --font-size-dt: .845rem;
+    --border-dt: #e2e8f0;
+    --background-color-dt: #667eea;
+}
+
+table.table {
+    border: 1px solid var(--border-dt);
+    border-collapse: collapse;
+
+    /* thead th, thead td {
+        padding: 10px 18px;
+    }
+
+    tbody th, tbody td {
+        padding: 8px 10px;
+    } */
+
+    thead th, thead td, tbody th, tbody td {
+        border: 1px solid var(--border-dt);
+        font-size: var(--font-size-dt);    
+
+        padding: 6px 10px;
+    }
+}

@@ -1,0 +1,75 @@
+import { Component, forwardRef, Input, OnInit, Inject, INJECTOR, Injector } from '@angular/core';
+import { AbstractControl, ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
+import { MyErrorStateMatcher } from '@utils/MyErrorStateMatcher';
+
+@Component({
+  selector: 'app-input',
+  templateUrl: './input.component.html',
+  styleUrls: ['./input.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => InputComponent),
+      multi: true
+    }
+  ]
+})
+export class InputComponent implements OnInit, ControlValueAccessor {
+
+  @Input() myLabel: string = '';
+
+  control: FormControl = new FormControl('');
+  errorMatcher = new MyErrorStateMatcher();
+  ngControl: NgControl;
+  counter: number = 0;
+  value: string;
+  isDisabled: boolean;
+  onChange = (_:any) => { }
+  onTouch = () => { }
+
+  constructor(
+    @Inject(INJECTOR) private injector: Injector
+  ) { }
+
+  ngOnInit(): void {
+    this.ngControl = this.injector.get(NgControl);
+
+    setTimeout(() => {
+      const validators = this.ngControl.control?.validator;
+      
+      this.control.setValidators(validators ? validators : null);
+      this.control.updateValueAndValidity();
+    });
+
+    this.control.valueChanges.subscribe(value => this.setInputValue(value));
+  }
+
+  setInputValue(value: string) {
+    this.counter = value.length;
+    this.value = value;
+    this.onTouch();
+    this.onChange(this.value);
+  }
+
+
+  writeValue(value: any): void {
+    if (value) {
+      this.value = value || '';
+    } else {
+      this.value = '';
+    }
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouch = fn;
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    this.isDisabled = isDisabled;
+  }
+
+}

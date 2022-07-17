@@ -1,0 +1,30 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Main -->
+    <div class="flex-auto p-4 sm:p-4 sm:pt-4">
+        <div class="flex-auto">
+            <div
+                class="flex flex-col p-8 pb-4 bg-card rounded-2xl shadow overflow-hidden"
+                style="height: 500px;">
+                <form [formGroup]="form" class="custom-mat-form">
+
+                    <!--Using items input-->
+                    <ng-select 
+                        placeholder="Select car"
+                        appendTo="body"
+                        [items]="cars" 
+                        bindLabel="name" 
+                        (change)="onChange($event)"
+                        bindValue="id" 
+                        [ngClass]="{'ng-invalid': f.cardId.errors && f.cardId.touched}"
+                        formControlName="cardId">
+                    </ng-select>
+
+                    <mat-error *ngIf="f.cardId.errors && f.cardId.touched">
+                        <span *ngIf="f.cardId.errors.required">Campo requerido.</span>
+                    </mat-error>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

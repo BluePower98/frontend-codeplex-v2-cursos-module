@@ -1,0 +1,21 @@
+<div class="mat-dialog-header">
+    <h2 class="mb-2" mat-dialog-title>
+        Líneas
+    </h2>
+    <button mat-icon-button (click)="closeModal()">
+        <mat-icon [svgIcon]="'heroicons_outline:x'"></mat-icon>
+    </button>
+</div>
+
+<mat-dialog-content class="p-5">
+    <app-lines-list [data]="data"></app-lines-list>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+    <mat-paginator 
+        [length]="linesListComponent.lines | filtrar: 'Destipoproductos' : linesListComponent.filters.Destipoproductos | filtrar: 'codigo' : linesListComponent.filters.codigo | filtrar : 'descripcion' : linesListComponent.filters.descripcion | length"
+        [pageSize]="linesListComponent.paginationConfig.perPage"
+        [pageSizeOptions]="linesListComponent.paginationConfig.length"
+        (page)="linesListComponent.handlePage($event)">
+    </mat-paginator>
+</mat-dialog-actions>

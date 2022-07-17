@@ -1,0 +1,287 @@
+<form 
+    [formGroup]="form"
+    class="flex flex-col mt-0 pb-4 overflow-hidden custom-mat-form">
+    <mat-accordion multi>
+        <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <strong>INFORMACIÓN</strong>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="grid md:grid-cols-8 sm:grid-cols-4 gap-x-6 w-full">
+                <div class="md:col-span-2 sm:col-span-2">
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Código</mat-label>
+                        <input matInput formControlName="codigo" [errorStateMatcher]="errorMatcher" />
+                        <button 
+                            type="button" 
+                            role="button" 
+                            (click)="generateProductCode()" 
+                            mat-icon-button 
+                            matSuffix>
+                            <mat-icon svgIcon="mat_outline:settings"></mat-icon>
+                        </button>
+
+                        <mat-error *ngIf="f.codigo.errors">
+                            <span *ngIf="f.codigo.errors.required">Campo requerido.</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="md:col-span-2 sm:col-span-2">
+                    <mat-form-field appearance="outline" class="flex-auto gt-xs:pr-3 w-full">
+                        <mat-select [placeholder]="'Tipo de producto'" formControlName="idtipoproducto">
+                            <mat-option 
+                                (click)="onChangeProductType(item)"
+                                *ngFor="let item of (productTypeList$ | async)"
+                                [value]="item.Id">{{ item.ItemName }}</mat-option>
+                        </mat-select>
+
+                        <mat-error *ngIf="f.idtipoproducto.errors">
+                            <span *ngIf="f.idtipoproducto.errors.required">Campo requerido.</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="md:col-span-2 sm:col-span-2">
+                    <ng-select 
+                        #linesSelect
+                        placeholder="Líneas"
+                        appendTo="body"
+                        [items]="lineList" 
+                        bindLabel="ItemName"
+                        bindValue="Id" 
+                        (change)="onChangeLineas($event)"
+                        [ngClass]="{'ng-invalid': f.idlinea.errors && f.idlinea.touched}"
+                        formControlName="idlinea">
+                        <ng-template ng-footer-tmp>
+                            <button
+                               type="button"
+                               mat-flat-button
+                               (click)="openModalNewLines()"
+                               class="btn-custom btn-sm btn-brand mt-2">
+                               <mat-icon
+                                   class="icon-size-5 mr-2"
+                                   [svgIcon]="'heroicons_solid:plus'"></mat-icon>
+                               AGREGAR
+                           </button>
+                        </ng-template>
+                    </ng-select>
+
+                    <mat-error *ngIf="f.idlinea.errors">
+                        <span *ngIf="f.idlinea.errors.required">Campo requerido.</span>
+                    </mat-error>
+                </div>
+
+                <div class="md:col-span-2 sm:col-span-2">
+                    <ng-select 
+                        #subLinesSelect
+                        placeholder="Sub líneas"
+                        appendTo="body"
+                        [items]="subLineList" 
+                        bindLabel="ItemName"
+                        bindValue="Id" 
+                        [ngClass]="{'ng-invalid': f.idlineasub.errors && f.idlineasub.touched}"
+                        formControlName="idlineasub">
+                        <ng-template *ngIf="f.idlinea.value" ng-footer-tmp>
+                            <button
+                               type="button"
+                               mat-flat-button
+                               (click)="openModalNewSubLines()"
+                               class="btn-custom btn-sm btn-brand mt-2">
+                               <mat-icon
+                                   class="icon-size-5 mr-2"
+                                   [svgIcon]="'heroicons_solid:plus'"></mat-icon>
+                               AGREGAR
+                           </button>
+                        </ng-template>
+                    </ng-select>
+
+                    <mat-error *ngIf="f.idlineasub.errors">
+                        <span *ngIf="f.idlineasub.errors.required">Campo requerido.</span>
+                    </mat-error>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-x-6 w-full">
+                <div class="md:col-span-2">
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Descripción</mat-label>
+                        <input matInput formControlName="descripcion" [errorStateMatcher]="errorMatcher" />
+
+                        <mat-error *ngIf="f.descripcion.errors">
+                            <span *ngIf="f.descripcion.errors.required">Campo requerido.</span>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <fuse-card
+                        class="card-simple flex-col p-8 sm:py-12 sm:px-10 lg:rounded-none lg:rounded-l w-full">
+                        <div class="text-2xl font-semibold leading-tight">Otras configuraciones</div>
+
+                        <mat-form-field class="flex-auto w-full mt-8" appearance="outline">
+                            <mat-select [placeholder]="'Tipo IGV'" formControlName="idsunatt07">
+                                <mat-option 
+                                    (click)="onChangeSunatt07(item)"
+                                    *ngFor="let item of (sunatt07List$ | async)"
+                                    [value]="item.Id">{{ item.ItemName }}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="f.idsunatt07.errors">
+                                <span *ngIf="f.idsunatt07.errors.required">Campo requerido.</span>
+                            </mat-error>
+                        </mat-form-field>
+
+                        <div class="mt-4">
+                            <ul class="list-other-configurations">
+                                <li>
+                                    <span>Activo</span>
+                                    <mat-slide-toggle name="activo" formControlName="activo">
+                                    </mat-slide-toggle>
+                                </li>
+                                <li>
+                                    Vender en Negativos
+                                    <mat-slide-toggle name="estadoventa" formControlName="estadoventa">
+                                    </mat-slide-toggle>
+                                </li>
+                                <li>
+                                    Es Combo
+                                    <mat-slide-toggle name="escombo" formControlName="escombo">
+                                    </mat-slide-toggle>
+                                </li>
+                                <li>
+                                    Afectación al ICBPER (Bolsas plásticas)
+                                    <mat-slide-toggle name="icbper" formControlName="icbper">
+                                    </mat-slide-toggle>
+                                </li>
+                            </ul>
+                        </div>
+                    </fuse-card>
+                </div>
+
+                <div class="md:col-span-2">
+                    <fuse-card
+                        class="card-simple flex-col p-8 sm:py-12 sm:px-10 lg:rounded-none lg:rounded-l w-full">
+                        <div class="text-2xl font-semibold leading-tight">Fotos</div>
+
+                        <div class="mt-8">
+                            <app-dropzone-upload 
+                                [items]="productImages"
+                                [maxFiles]="4"
+                                [maxFilesize]="5"
+                                (onUpdateFiles)="onUpdateFiles($event)"></app-dropzone-upload>
+                        </div>
+                    </fuse-card>
+                </div>
+            </div>
+
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <strong>INFORMACIÓN ADICIONAL</strong>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="grid md:grid-cols-4 gap-x-6 w-full">
+                <div class="md:col-span-2">
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Percepción</mat-label>
+                        <input 
+                            matInput 
+                            formControlName="porpercepcion"
+                            [errorStateMatcher]="errorMatcher" />
+                    </mat-form-field>
+                </div>
+
+                <div class="md:col-span-2">
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>ISC</mat-label>
+                        <input 
+                            matInput 
+                            formControlName="porisc" 
+                            [errorStateMatcher]="errorMatcher" />
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-6 gap-x-6 w-full">
+                <div class="md:col-span-2">
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>infad1</mat-label>
+                        <textarea 
+                            matInput
+                            name="infad1"
+                            rows="6"
+                            formControlName="infad1"></textarea>
+                    </mat-form-field>
+                </div>
+
+                <div class="md:col-span-2">
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>infad2</mat-label>
+                        <textarea 
+                            matInput 
+                            name="infad2" 
+                            rows="6"
+                            formControlName="infad2"></textarea>
+                    </mat-form-field>
+                </div>
+
+                <div class="md:col-span-2">
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>infad3</mat-label>
+                        <textarea 
+                            matInput 
+                            name="infad3" 
+                            rows="6"
+                            formControlName="infad3"></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+
+        </mat-expansion-panel>
+
+        <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <strong>LISTA DE PRECIOS</strong>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div>
+                <button
+                    type="button"
+                    mat-flat-button
+                    (click)="addPricesItem()"
+                    class="btn-custom btn-brand">
+                    <mat-icon
+                        class="icon-size-5 mr-2"
+                        [svgIcon]="'heroicons_solid:plus'"></mat-icon>
+                    AGREGAR
+                </button>
+
+                <div formArrayName="itemPrecios">
+                    <div class="mt-8" 
+                        *ngFor="let itemprecio of itemPrecios.controls; index as i; let deshabilitar">
+                        <app-products-prices-zone
+                            [index]="i"
+                            [companyId]="companyId"
+                            [form]="itemPrecios.at(i)"
+                            [edit]="data.edit"
+                            [showDeleteButton]="itemPrecios.controls.length > 1"
+                            (onRemover)="removeItemPrice($event)"
+                            (onStartBarecodeScanner)="scanner.start()"
+                            (onRemoverListAdded)="removeAddedItemPrice($event)">
+                        </app-products-prices-zone>
+
+                        <app-barcode-scanner 
+                            #scanner
+                            (onCaptureValue)="onValueChangesBarcodeScanner($event, scannerIndex)">
+                        </app-barcode-scanner>
+                    </div>
+                </div>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</form>

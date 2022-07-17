@@ -1,0 +1,142 @@
+<button
+    type="button"
+    mat-flat-button
+    (click)="addMeasure()"
+    class="btn-custom btn-brand mb-4">
+    <mat-icon
+        class="icon-size-5 mr-2"
+        [svgIcon]="'heroicons_solid:plus'"></mat-icon>
+    AGREGAR
+</button>
+
+<form [formGroup]="form">
+    <table class="table w-full">
+        <thead>
+            <tr>
+                <th>DESCRIPCIÓN</th>
+                <th>CÓDIGO SUNAT</th>
+                <th>EQUIVALENCIA</th>
+                <th>ACCIONES</th>
+            </tr>
+            <tr>
+                <!-- Filters -->
+                <ng-container [ngTemplateOutlet]="tplFilters"></ng-container>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of measures| filtrar : 'descripcion' : filters.descripcion | filtrar: 'sunatcodigo' : filters.sunatcodigo | paginate: paginationConfig.perPage: paginationConfig.page; let i= index">
+                <ng-container *ngIf="cellEditRow === i; else elseTemplate">
+                    <ng-container 
+                        [ngTemplateOutlet]="tplForm"
+                        [ngTemplateOutletContext]="{i: i}" ></ng-container>
+                </ng-container>
+                <ng-template #elseTemplate>
+                    <ng-container 
+                        [ngTemplateOutlet]="tplList"
+                        [ngTemplateOutletContext]="{item: item, i: i}" ></ng-container>
+                </ng-template>
+            </tr>
+        </tbody>
+    </table>
+</form>
+
+<ng-template #itemTemplate let-item>
+    <a [innerHTML]="item.ItemName"></a>
+</ng-template>
+
+<ng-template #tplFilters>
+    <th>
+        <ng-autocomplete 
+            [data]="measures | group: 'descripcion'"
+            [initialValue]=""
+            [searchKeyword]="'ItemName'"
+            (inputCleared)="onClearFilter('descripcion')"
+            (inputChanged)="onChangeFilter($event, 'descripcion')"
+            (selected)="onSelectFilter($event, 'descripcion')"
+            placeHolder="Buscar por descripcion"
+            [itemTemplate]="itemTemplate">
+        </ng-autocomplete>
+    </th>
+    <th>
+        <ng-autocomplete 
+            [data]="listMedidas | group:'sunatcodigo'"
+            [initialValue]=""
+            [searchKeyword]="'ItemName'"
+            (inputCleared)="onClearFilter('sunatcodigo')"
+            (inputChanged)="onChangeFilter($event, 'sunatcodigo')"
+            (selected)="onSelectFilter($event, 'sunatcodigo')"
+            placeHolder="Buscar por codigo"
+            [itemTemplate]="itemTemplate">
+        </ng-autocomplete>
+    </th>
+    <th></th>
+    <th></th>
+</ng-template>
+
+<ng-template #tplForm [formGroup]="form" let-index="i">
+    <td class="custom-mat-form">
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Descripción</mat-label>
+            <input 
+                matInput 
+                type="text" 
+                [errorStateMatcher]="errorMatcher"
+                formControlName="descripcion" />
+            <mat-error *ngIf="f.descripcion.errors">
+                <span *ngIf="f.descripcion.errors.required">Campo requerido.</span>
+            </mat-error>
+        </mat-form-field>
+    </td>
+    <td>
+        <ng-select 
+            formControlName="sunatcodigo"
+            (change)="onChangeMeasureCode($event)" 
+            [multiple]="false"
+            placeholder="Buscar codigo">
+            <ng-option *ngFor="let code of measuresCodes" [value]="code.codigo">
+                {{ code.codigo }} - {{ code.descripcion }}
+            </ng-option>
+        </ng-select>
+    </td>
+    <td class="custom-mat-form">
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Equivalencia</mat-label>
+            <input 
+                matInput 
+                [errorStateMatcher]="errorMatcher" 
+                type="text" 
+                formControlName="equivalencia" />
+        </mat-form-field>
+    </td>
+    <td class="text-center">
+        <button 
+            type="button"
+            mat-mini-fab
+            (click)="addOrEdit()"
+            class="btn-custom btn-indigo">
+            <mat-icon [svgIcon]="'heroicons_outline:check'"></mat-icon>
+        </button>
+        <button 
+            type="button"
+            (click)="cancelMeasure(index)"
+            mat-mini-fab
+            class="btn-custom btn-danger ml-3">
+            <mat-icon [svgIcon]="'heroicons_outline:x'"></mat-icon>
+        </button>
+    </td>
+</ng-template>
+
+
+<ng-template #tplList let-item="item" let-index="i">
+    <td> {{ item?.descripcion}} </td>
+    <td> {{ item?.sunatcodigo}}</td>
+    <td> {{ item?.equivalencia}} </td>
+    <td class="text-center">
+        <button type="button" mat-icon-button (click)="editMeasure(item, index)">
+            <mat-icon [svgIcon]="'heroicons_outline:pencil-alt'"></mat-icon>
+        </button>
+        <button type="button" mat-icon-button (click)="deleteMeasure(item, index)">
+            <mat-icon [svgIcon]="'heroicons_outline:trash'"></mat-icon>
+        </button>
+    </td>
+</ng-template>

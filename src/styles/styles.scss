@@ -1,0 +1,14 @@
+/* ----------------------------------------------------------------------------------------------------- */
+/*  @ Import/write your custom styles here.
+/*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
+/* ----------------------------------------------------------------------------------------------------- */
+
+.loading-spinner {
+    width: 26px;
+    height: 26px;
+    border: 3px solid #ccc;
+    border-radius: 50%;
+    border-top: 3px solid #333;
+    -webkit-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+}  

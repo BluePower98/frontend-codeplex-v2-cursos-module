@@ -1,0 +1,25 @@
+
+@import "~@ng-select/ng-select/themes/material.theme.css";
+
+ng-select {
+    padding-bottom: .3em !important;
+
+    &.ng-select .ng-select-container {
+        min-height: 47px;
+    }
+
+    &.ng-select.ng-invalid .ng-select-container:after,
+    &.ng-select.ng-select-focused.ng-invalid .ng-select-container:after {
+        border-color: red;
+        border-bottom: 1px solid red;
+    }
+
+    &.ng-select.ng-select-focused .ng-select-container:after {
+        border-width: 1px;
+    }
+}
+
+ng-select + mat-error {
+    padding: .2em 0.5em 1em 0.5em;
+    font-size: 10.5px;
+}

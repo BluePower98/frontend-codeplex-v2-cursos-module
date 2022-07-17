@@ -1,0 +1,73 @@
+<form [formGroup]="form" class="custom-mat-form">
+    <div class="grid md:grid-cols-8 sm:grid-cols-4 gap-x-6 w-full">
+        <div class="lg:col-span-2 md:col-span-4 sm:col-span-8">
+            <mat-form-field appearance="fill" class="flex-auto gt-xs:pr-3 w-full">
+                <mat-label>Tipo de producto</mat-label>
+                <mat-select [placeholder]="''" formControlName="idtipoproducto">
+                    <mat-option 
+                        (click)="onChangeProductType(item)"
+                        *ngFor="let item of productTypes"
+                        [value]="item.Id">
+                        {{ item.ItemName }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>        
+        </div>
+        <div class="lg:col-span-6 md:col-span-8 sm:col-span-8">
+            <div class="flex flex-shrink-0 items-center mt-1 h-full flex-wrap">
+                <button
+                    (click)="inputFile.click()"
+                    type="button"
+                    class="btn-custom btn-indigo mr-3"
+                    mat-flat-button>
+                    <mat-icon
+                        class="icon-size-5 mr-2"
+                        [svgIcon]="'heroicons_outline:cloud-upload'"></mat-icon>
+                    Subir Archivo 
+                    <input 
+                        #inputFile
+                        type="file"
+                        onclick="this.value = null" 
+                        style="display: none;"
+                        (change)="uploadFile($event)"
+                        placeholder="Subir archivo" 
+                        accept=".xlsx" />
+                </button>
+
+                <button
+                    *ngIf="showUploadDataButton"
+                    type="button"
+                    (click)="uploadData()"
+                    class="btn-custom btn-amber mr-3"
+                    mat-flat-button>
+                    <mat-icon
+                        class="icon-size-5 mr-2"
+                        [svgIcon]="'heroicons_outline:save'"></mat-icon>
+                    Guardar
+                </button>
+
+                <button
+                    type="button"
+                    (click)="deleteImportedProducts()"
+                    class="btn-custom btn-danger mr-3"
+                    mat-flat-button>
+                    <mat-icon
+                        class="icon-size-5 mr-2"
+                        [svgIcon]="'heroicons_outline:trash'"></mat-icon>
+                    Eliminar datos importados
+                </button>
+
+                <button
+                    type="button"
+                    (click)="downloadTemplateExcel('ItemsLista.xlsx')"
+                    class="btn-custom btn-brand"
+                    mat-flat-button>
+                    <mat-icon
+                        class="icon-size-5 mr-2"
+                        [svgIcon]="'heroicons_outline:cloud-download'"></mat-icon>
+                    Descargar formato
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

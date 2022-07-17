@@ -1,0 +1,36 @@
+<app-import-products-form
+    [companyId]="companyId"
+    [productTypes]="productTypes"
+    [showUploadDataButton]="isEnableUploadData"
+    (onUploadFile)="uploadFile($event)"
+    (onUploadData)="uploadData($event)"
+    (onDeleteImportedProducts)="deleteImportedProducts($event)"
+    (onDownloadTemplateExcel)="downloadTemplateExcel($event)"
+></app-import-products-form>
+
+<mat-tab-group #tabGroup class="mt-4">
+    <mat-tab label="Datos">
+        <app-import-products-table
+            [data]="productsList"
+            [displayedColumns]="displayedColumns">
+        </app-import-products-table>
+    </mat-tab>
+    <mat-tab>
+
+        <ng-template mat-tab-label>
+            <span *ngIf="countErrors === 0; else badge">Errores</span>
+
+            <ng-template #badge>
+                <span [matBadge]="countErrors" class="badge-danger">Errores</span>
+            </ng-template>
+            
+        </ng-template>
+
+        <app-import-products-table
+            [data]="productsListWithErrors"
+            [displayedColumns]="displayedColumns">
+        </app-import-products-table>
+    </mat-tab>
+
+    
+</mat-tab-group>

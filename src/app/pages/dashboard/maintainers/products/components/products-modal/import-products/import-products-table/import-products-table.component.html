@@ -1,0 +1,82 @@
+<div class="container-table-overflow-x">
+    <table 
+        class="w-full" 
+
+        mat-table 
+        [dataSource]="dataSource" 
+        matSortActive="created" 
+        matSortDisableClear 
+        matSortDirection="desc" 
+        matSort>
+
+        <ng-container matColumnDef="#">
+            <th nowrap mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
+            <td nowrap mat-cell *matCellDef="let element; let i = index;"></td>
+        </ng-container>
+
+        <ng-container matColumnDef="Codigo">
+            <th nowrap mat-header-cell *matHeaderCellDef mat-sort-header>Codigo</th>
+            <td nowrap mat-cell *matCellDef="let row">{{ row.Codigo }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Producto">
+            <th nowrap mat-header-cell *matHeaderCellDef mat-sort-header>Producto</th>
+            <td nowrap mat-cell *matCellDef="let row">{{ row.Producto }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Linea">
+            <th nowrap mat-header-cell *matHeaderCellDef mat-sort-header>Linea</th>
+            <td nowrap mat-cell *matCellDef="let row">{{ row.Linea }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="SubLinea">
+            <th nowrap mat-header-cell *matHeaderCellDef mat-sort-header>SubLinea</th>
+            <td nowrap mat-cell *matCellDef="let row">{{ row.SubLinea }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Sunat">
+            <th nowrap mat-header-cell *matHeaderCellDef mat-sort-header>Sunat</th>
+            <td nowrap mat-cell *matCellDef="let row">{{ row.Sunat }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Activo">
+            <th nowrap mat-header-cell *matHeaderCellDef mat-sort-header>Activo</th>
+            <td nowrap mat-cell *matCellDef="let row">{{ row.Activo }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="InfAd1">
+            <th nowrap mat-header-cell *matHeaderCellDef mat-sort-header>InfAd1</th>
+            <td nowrap mat-cell *matCellDef="let row">{{ row.InfAd1 }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="InfAd2">
+            <th nowrap mat-header-cell *matHeaderCellDef mat-sort-header>InfAd2</th>
+            <td nowrap mat-cell *matCellDef="let row">{{ row.InfAd2 }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Percepcion">
+            <th nowrap mat-header-cell *matHeaderCellDef mat-sort-header>Percepción</th>
+            <td nowrap mat-cell *matCellDef="let row">{{ row.Percepcion }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="ISC">
+            <th nowrap mat-header-cell *matHeaderCellDef mat-sort-header>ISC</th>
+            <td nowrap mat-cell *matCellDef="let row">{{ row.ISC }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="EstadoVenta">
+            <th nowrap mat-header-cell *matHeaderCellDef mat-sort-header>Estado Venta</th>
+            <td nowrap mat-cell *matCellDef="let row">{{ row.EstadoVenta }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Combo">
+            <th nowrap mat-header-cell *matHeaderCellDef mat-sort-header>Combo</th>
+            <td nowrap mat-cell *matCellDef="let row">{{ row.Combo }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator #paginator [pageSizeOptions]="[50, 100]"></mat-paginator>
+</div>

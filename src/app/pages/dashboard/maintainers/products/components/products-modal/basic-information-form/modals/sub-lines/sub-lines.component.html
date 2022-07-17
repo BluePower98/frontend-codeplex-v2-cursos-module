@@ -1,0 +1,21 @@
+<div class="mat-dialog-header">
+    <h2 class="mb-2" mat-dialog-title>
+        {{ data.title }}
+    </h2>
+    <button mat-icon-button (click)="closeModal()">
+        <mat-icon [svgIcon]="'heroicons_outline:x'"></mat-icon>
+    </button>
+</div>
+
+<mat-dialog-content class="p-5">
+    <app-sub-lines-list [data]="data"></app-sub-lines-list>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+    <mat-paginator 
+        [length]="subLinesListComponent.subLines | filtrar: 'Destipoproductos' : subLinesListComponent.filters.Destipoproductos | filtrar: 'codigo' : subLinesListComponent.filters.codigo | filtrar : 'descripcion' : subLinesListComponent.filters.descripcion | length"
+        [pageSize]="subLinesListComponent.paginationConfig.perPage"
+        [pageSizeOptions]="subLinesListComponent.paginationConfig.length"
+        (page)="subLinesListComponent.handlePage($event)">
+    </mat-paginator>
+</mat-dialog-actions>

@@ -1,0 +1,16 @@
+<mat-selection-list class="list-selection" [multiple]="false">
+    <mat-list-option 
+        [value]="'company'"
+        (click)="onSelectionChange('company')">{{ selectedCompany?.nombrerazon }}</mat-list-option>
+    <mat-divider></mat-divider>
+    <ng-container *ngIf="selectedSucursal">
+        <mat-list-option 
+            [value]="'sucursal'"
+            (click)="onSelectionChange('sucursal')">{{ selectedSucursal.sucursal }}</mat-list-option>
+        <mat-divider></mat-divider>
+    </ng-container>
+    <mat-list-option 
+        [value]="'dates'"
+        (click)="onSelectionChange('dates')">DICIEMBRE - 2021</mat-list-option>
+    <mat-divider></mat-divider>
+</mat-selection-list>

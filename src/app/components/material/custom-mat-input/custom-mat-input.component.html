@@ -1,0 +1,24 @@
+<mat-form-field [appearance]="appearance" [class]="className">
+    <mat-label>{{ label }}</mat-label>
+    <input 
+        matInput
+        [formControl]="control"
+        [readonly]="readonly"
+        [errorStateMatcher]="errorMatcher" />
+
+    <!-- <mat-icon
+        class="icon-size-5"
+        matSuffix
+        [svgIcon]="'heroicons_solid:user-circle'"></mat-icon> -->
+
+    <!-- <mat-error *ngIf="errors.length > 0">
+        <span *ngFor="let error of errors">{{ error }}</span>
+    </mat-error>  -->
+    <mat-error *ngIf="errorMessage">
+        <span>{{ errorMessage }}</span>
+    </mat-error> 
+</mat-form-field>
+
+<!-- <div>
+    {{ control.errors | json }}
+</div> -->

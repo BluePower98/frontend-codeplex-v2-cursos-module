@@ -1,0 +1,17 @@
+.custom-alert {
+    display: flex;
+    justify-items: center;
+    padding: 1rem 1.25rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+
+    &--warning{
+        color: #856404;
+        background-color: #fff3cd;
+        border-color: #ffeeba;
+
+        mat-icon svg {
+            stroke: #856404;
+        }
+    }
+}

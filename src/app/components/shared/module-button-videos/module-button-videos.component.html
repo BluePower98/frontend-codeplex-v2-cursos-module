@@ -1,0 +1,13 @@
+<ng-container *ngIf="videos.length > 0">
+  <button 
+    mat-flat-button
+    (click)="openModal()" 
+    class="btn-custom btn-dark mr-3 btn-video">
+    <mat-icon class="icon-size-5" svgIcon="heroicons_outline:video-camera"></mat-icon> &nbsp;
+    Ver videos
+  </button>
+
+  <button mat-icon-button title="Ver videos" class="btn-icon-video" (click)="openModal()">
+    <mat-icon svgIcon="heroicons_outline:video-camera"></mat-icon>
+  </button>
+</ng-container>

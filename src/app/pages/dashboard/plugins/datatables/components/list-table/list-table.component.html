@@ -1,0 +1,17 @@
+<table 
+    datatable
+    [dtOptions]="dtOptions"
+    class="stripe"
+    style="width:100%">
+</table>
+
+<ng-template #dtRowActions let-data="data">
+    <div class="dt-row-actions">
+        <button mat-icon-button (click)="onEdit(data)">
+            <mat-icon [svgIcon]="'heroicons_outline:pencil-alt'"></mat-icon>
+        </button>
+        <button mat-icon-button (click)="onDelete(data)">
+            <mat-icon [svgIcon]="'heroicons_outline:trash'"></mat-icon>
+        </button>
+    </div>
+</ng-template>

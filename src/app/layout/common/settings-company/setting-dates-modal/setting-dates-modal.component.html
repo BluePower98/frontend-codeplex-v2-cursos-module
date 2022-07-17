@@ -1,0 +1,64 @@
+<div class="mat-dialog-header">
+    <h2 class="mb-2" mat-dialog-title>
+        Seleccionar Fechas
+    </h2>
+    <button mat-icon-button mat-dialog-close>
+        <mat-icon [svgIcon]="'heroicons_outline:x'"></mat-icon>
+    </button>
+</div>
+
+<mat-dialog-content class="p-6">
+
+    <form [formGroup]="form" autocomplete="off" class="flex flex-col mt-0 custom-mat-form">
+        <div class="grid md:grid-cols-8 sm:grid-cols-4 gap-x-6 w-full">
+            <div class="md:col-span-4 sm:col-span-4">
+                <ng-select 
+                    placeholder="Meses"
+                    appendTo="body"
+                    [items]="months" 
+                    bindLabel="desmes"
+                    bindValue="idmes" 
+                    (change)="onChangeMonth($event)"
+                    [ngClass]="{'ng-invalid': f.month.errors && f.month.touched}"
+                    formControlName="month">
+                </ng-select>
+
+                <mat-error *ngIf="f.month.errors">
+                    <span *ngIf="f.month.errors.required">Campo requerido.</span>
+                </mat-error>
+            </div>
+            <div class="md:col-span-4 sm:col-span-4">
+                <ng-select 
+                    placeholder="Años"
+                    appendTo="body"
+                    [items]="years" 
+                    bindLabel="idaniopro"
+                    bindValue="idaniopro" 
+                    (change)="onChangeYear($event)"
+                    [ngClass]="{'ng-invalid': f.year.errors && f.year.touched}"
+                    formControlName="year">
+                </ng-select>
+
+                <mat-error *ngIf="f.year.errors">
+                    <span *ngIf="f.year.errors.required">Campo requerido.</span>
+                </mat-error>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-stroked-button mat-dialog-close>
+        <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+        Cancelar
+    </button>
+    <button 
+        type="button"
+        class="ml-3"
+        mat-flat-button
+        (click)="onSubmit()"
+        [color]="'primary'">
+        <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_outline:save'"></mat-icon>
+        Save
+    </button>
+</mat-dialog-actions>

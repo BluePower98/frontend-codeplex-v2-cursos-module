@@ -1,0 +1,25 @@
+.container-table-overflow-x {
+    .mat-table{
+        overflow-x: scroll;
+    }
+
+    .mat-paginator {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .mat-cell,
+    .mat-header-cell {
+        word-wrap: initial;
+        display: table-cell;
+        padding: 0px 10px;
+        line-break: unset;
+        white-space: nowrap;
+        overflow: hidden;
+        vertical-align: middle;
+    }
+    .mat-row,
+    .mat-header-row {
+        display: table-row;
+    }
+}

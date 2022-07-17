@@ -1,0 +1,51 @@
+<div class="mat-dialog-header">
+  <h2 class="mb-2" mat-dialog-title>
+    {{ videos.length > 1 ? 'Videos' :  videoSelected.title }}
+  </h2>
+  <button mat-icon-button mat-dialog-close>
+      <mat-icon [svgIcon]="'heroicons_outline:x'"></mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content class="p-5">
+  <div class="grid md:grid-cols-8 sm:grid-cols-4 gap-x-6 w-full">
+    <div class="lg:col-span-4 md:col-span-8 sm:col-span-8" *ngIf="videos.length > 1">
+      <mat-card class="card-videos mb-10">
+        <mat-list>
+          <div mat-subheader>Videos</div>
+          <div class="custom-mat-form ml-3 mr-3">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Buscar</mat-label>
+              <input matInput [formControl]="searchText" />
+            </mat-form-field>
+          </div>
+          <mat-list-item *ngFor="let video of filteredVideos">
+            <mat-icon mat-list-icon svgIcon="heroicons_outline:film"></mat-icon>
+            <div mat-line class="movie-title">{{video.title}}</div>
+            <mat-radio-button 
+                class="ml-5"
+                color="primary" 
+                [checked]="video.id == currentSelected" 
+                [value]="video.id" 
+                (change)="changeVideo($event.value)"></mat-radio-button>
+          </mat-list-item>
+
+          <ng-container *ngIf="filteredVideos.length === 0">
+            <div class="ml-3 mr-3 mt-2">
+              <div class="custom-alert custom-alert--warning">
+                <mat-icon class="mr-3" svgIcon="heroicons_outline:exclamation"></mat-icon>
+                No se encontraron resultados.
+              </div>
+            </div>
+          </ng-container>
+        </mat-list>
+      </mat-card>
+    </div>
+    <div class="sm:col-span-8" [ngClass]="{'lg:col-span-8 md:col-span-8': videos.length === 1, 'lg:col-span-4 md:col-span-8': videos.length > 1}">
+      <iframe 
+          frameborder="0" 
+          allowfullscreen 
+          [src]="videoSelected.video + '?controls=1' | urlSafe: ''"></iframe>
+    </div>
+  </div>
+</mat-dialog-content>

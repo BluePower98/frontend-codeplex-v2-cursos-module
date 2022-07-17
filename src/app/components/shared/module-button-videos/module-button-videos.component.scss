@@ -1,0 +1,19 @@
+button.btn-video {
+    height: 33px;
+    min-height: 33px;
+    padding: 0 15px !important;
+    display: none !important;
+}
+
+button.btn-icon-video {
+    display: unset !important;
+}
+
+@media screen and (min-width: 767px) {    
+    button.btn-video {
+        display: unset !important;
+    }
+    button.btn-icon-video {
+        display: none !important;
+    }
+}

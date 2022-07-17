@@ -1,0 +1,61 @@
+<div class="mat-dialog-header">
+    <h2 class="mb-2" mat-dialog-title>
+        {{ data.title }}
+    </h2>
+    <button mat-icon-button mat-dialog-close>
+        <mat-icon [svgIcon]="'heroicons_outline:x'"></mat-icon>
+    </button>
+</div>
+
+<mat-dialog-content class="p-0">
+    <form 
+        [formGroup]="form" 
+        class="flex flex-col mt-0 p-5 pb-4 overflow-hidden custom-mat-form">
+        <div class="flex flex-col gt-xs:flex-row">
+            <mat-form-field appearance="outline" [ngClass]="formFieldHelpers" >
+                <mat-label>First name</mat-label>
+                <input 
+                    matInput
+                    formControlName="first_name"
+                    [errorStateMatcher]="errorMatcher" />
+
+                <mat-error *ngIf="f.first_name.errors">
+                    <span *ngIf="f.first_name.errors.required">Campo requerido.</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" [ngClass]="formFieldHelpers" >
+                <mat-label>Last name</mat-label>
+                <input 
+                    matInput
+                    formControlName="last_name"
+                    [errorStateMatcher]="errorMatcher" />
+
+                    <mat-error *ngIf="f.last_name.errors">
+                        <span *ngIf="f.last_name.errors.required">Campo requerido.</span>
+                    </mat-error>
+            </mat-form-field>
+        </div>
+    </form>
+        
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-stroked-button mat-dialog-close>
+        <mat-icon
+            class="icon-size-5 mr-2"
+            [svgIcon]="'heroicons_outline:x'"></mat-icon>
+        Cancelar
+    </button>
+    <button
+        type="button"
+        class="ml-3"
+        mat-flat-button
+        (click)="onSubmit()"
+        [color]="'primary'">
+        <mat-icon
+            class="icon-size-5 mr-2"
+            [svgIcon]="'heroicons_outline:save'"></mat-icon>
+        Save
+    </button>
+
+</mat-dialog-actions>

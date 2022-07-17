@@ -1,0 +1,71 @@
+<div class="container-table-overflow-x">
+    <table 
+        class="w-full" 
+        mat-table 
+        [dataSource]="dataSource" 
+        matSortActive="created" 
+        matSortDisableClear 
+        matSortDirection="desc" 
+        matSort>
+
+        <ng-container matColumnDef="#">
+            <th nowrap mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
+            <td nowrap mat-cell *matCellDef="let element; let i = index;"></td>
+        </ng-container>
+
+        <ng-container matColumnDef="CodigoProducto">
+            <th nowrap mat-header-cell *matHeaderCellDef mat-sort-header> CodigoProducto </th>
+            <td nowrap mat-cell *matCellDef="let row"> {{row.CodigoProducto }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Producto">
+            <th nowrap mat-header-cell *matHeaderCellDef mat-sort-header> Producto </th>
+            <td nowrap mat-cell *matCellDef="let row"> {{row.Producto }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="CodigoBarra">
+            <th nowrap mat-header-cell *matHeaderCellDef mat-sort-header> CodigoBarra </th>
+            <td nowrap mat-cell *matCellDef="let row"> {{row.CodigoBarra }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Medida">
+            <th nowrap mat-header-cell *matHeaderCellDef mat-sort-header> Medida </th>
+            <td nowrap mat-cell *matCellDef="let row"> {{row.Medida }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Equivalencia">
+            <th nowrap mat-header-cell *matHeaderCellDef mat-sort-header> Equivalencia </th>
+            <td nowrap mat-cell *matCellDef="let row"> {{row.Equivalencia}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Precio_venta">
+            <th nowrap mat-header-cell *matHeaderCellDef mat-sort-header> Precio_venta </th>
+            <td nowrap mat-cell *matCellDef="let row"> {{row.Precio_venta}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Cantidad">
+            <th nowrap mat-header-cell *matHeaderCellDef mat-sort-header> Cantidad </th>
+            <td nowrap mat-cell *matCellDef="let row"> {{row.Cantidad}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="IncIGV">
+            <th nowrap mat-header-cell *matHeaderCellDef mat-sort-header> IncIGV </th>
+            <td nowrap mat-cell *matCellDef="let row"> {{row.IncIGV}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Defecto">
+            <th nowrap mat-header-cell *matHeaderCellDef mat-sort-header> Defecto </th>
+            <td nowrap mat-cell *matCellDef="let row"> {{row.Defecto}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="TipoPrecio">
+            <th nowrap mat-header-cell *matHeaderCellDef mat-sort-header> TipoPrecio </th>
+            <td nowrap mat-cell *matCellDef="let row"> {{row.TipoPrecio}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator #paginator [pageSizeOptions]="[50, 100]"></mat-paginator>
+</div>
