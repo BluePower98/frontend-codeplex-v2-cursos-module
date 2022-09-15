@@ -1,0 +1,158 @@
+<div class="mat-dialog-header">
+    <h2 class="mb-2" mat-dialog-title>
+        {{ data.title }} Proveedores
+    </h2>
+    <button mat-icon-button mat-dialog-close>
+        <mat-icon [svgIcon]="'heroicons_outline:x'"></mat-icon>
+    </button>
+</div>
+<form  [formGroup]="form" class="flex flex-col mt-0 pb-4 overflow-hidden custom-mat-form">
+    <mat-accordion multi>
+        <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <strong>INFORMACIÓN</strong>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="grid md:grid-cols-8 sm:grid-cols-4 gap-x-6 w-full">
+                <div class="md:col-span-2 sm:col-span-2">
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Ruc/Dni</mat-label>
+                        <input matInput 
+               
+                        formControlName="rucdni" />
+
+                        <mat-error >
+                            <span >Campo requerido.</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            
+
+            <div class="md:col-span-4 sm:col-span-2">
+                <mat-form-field appearance="outline" class="flex-auto gt-xs:pr-3 w-full">
+                    <mat-select [placeholder]="'Tipo de Documento'" formControlName="idtipodocidentidad">
+                        <mat-option value="1">Documento Nacional de Identidad</mat-option>
+                        <mat-option value="4">Carnet de Extrangeria</mat-option>
+                        <mat-option value="6">Registro Unico de Contribuyente</mat-option>
+                        <mat-option value="7">Pasaporte</mat-option>
+                    </mat-select>
+                </mat-form-field>--
+            </div>
+
+            <div class="md:col-span-2 sm:col-span-2">
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Codigo</mat-label>
+                    <input matInput formControlName="codigo" />
+
+                    <mat-error >
+                        <span >Campo requerido.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="md:col-span-8 sm:col-span-2">
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Razon Social</mat-label>
+                    <input matInput formControlName="razonsocial" />
+
+                    <mat-error >
+                        <span >Campo requerido.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="md:col-span-8 sm:col-span-2">
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Nombre Comercial</mat-label>
+                    <input matInput formControlName="nombrecomercial" />
+
+                    <mat-error >
+                        <span >Campo requerido.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="md:col-span-2 sm:col-span-2">
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Telefono</mat-label>
+                    <input matInput formControlName="telefono" />
+
+                    <mat-error >
+                        <span >Campo requerido.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="md:col-span-6 sm:col-span-2">
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Direccion</mat-label>
+                    <input matInput formControlName="direccion" />
+
+                    <mat-error >
+                        <span >Campo requerido.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="md:col-span-8 sm:col-span-2">
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" />
+
+                    <mat-error >
+                        <span >Campo requerido.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="md:col-span-3 sm:col-span-2">
+
+                    <ng-select 
+                    #ubigeoSelect
+                    placeholder="Ubige"
+                    appendTo="body"
+                    [items]="listaUbigeo"
+                    bindLabel="nombre"
+                    bindValue="id" 
+                    formControlName="ubigeo"
+                    ></ng-select>
+
+            </div>
+            <div class="md:col-span-2 sm:col-span-2">
+                <mat-form-field appearance="outline" class="flex-auto gt-xs:pr-3 w-full">
+                    <mat-select [placeholder]="'Estado Sunat'" formControlName="estadosunat">
+                        <mat-option value="0">Habido</mat-option>
+                        <mat-option value="1">No Habido</mat-option>
+                        <mat-option value="2">De Baja</mat-option>
+
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="md:col-span-2 sm:col-span-2">
+               
+                    <mat-slide-toggle formControlName="activo">Activo</mat-slide-toggle>
+
+            </div>
+
+
+            
+            
+        </div>
+
+        </mat-expansion-panel>
+    </mat-accordion>
+
+</form>
+<mat-dialog-actions align="end">
+    <button mat-stroked-button mat-dialog-close>
+        <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+        Cancelar
+    </button>
+    <button 
+        
+        type="button"
+        class="ml-3"
+        mat-flat-button
+        (click)="onSubmit()"  [color]="'primary'">
+        <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_outline:save'"></mat-icon>
+        Save
+    </button>
+
+</mat-dialog-actions>
+

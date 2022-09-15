@@ -47,5 +47,19 @@ export const MAINTAINERS_ROUTES: Routes = [
         data: {
             preload: true
         }
+    },
+    {
+        path: 'Proveedores',
+        loadChildren: (): any => import('./proveedores/proveedores.module').then(m => m.ProveedoresModule),
+        data: {
+            preload: true
+        }
+    },
+    {
+        path: 'cursos',
+        loadChildren: (): any => import('./cursos/cursos.module').then(m => m.CursosModule),
+        data: {
+            preload: true
+        }
     }
 ];

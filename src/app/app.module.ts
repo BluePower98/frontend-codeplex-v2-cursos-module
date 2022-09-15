@@ -17,10 +17,26 @@ import { HttpHeadersInterceptor } from './interceptors/http-headers.interceptor'
 import { LayoutModule } from '@layout/layout.module';
 // import { IconsModule } from '@core/icons/icons.module';
 import { CoreModule } from '@core/core.module';
+//import { EspecialidadesComponent } from './pages/dashboard/cursos/especialidades/especialidades.component';
+//import { ComponentsListComponent } from './pages/dashboard/cursos/components/components-list/components-list.component';
+//import { CursosComponent } from './pages/dashboard/maintainers/cursos/cursos.component';
+//import { AlumnosComponent } from './pages/dashboard/cursos/alumnos/alumnos.component';
+//import { CursosComponent } from './pages/dashboard/cursos/cursos/cursos.component';
+//import { GruposComponent } from './pages/dashboard/cursos/grupos/grupos.component';
+//import { InstructoresComponent } from './pages/dashboard/cursos/instructores/instructores.component';
+//import { ComentariosComponent } from './pages/dashboard/cursos/comentarios/comentarios.component';
 
 @NgModule({
     declarations: [
         AppComponent,
+        //EspecialidadesComponent,
+        //ComponentsListComponent,
+        //CursosComponent,
+        //AlumnosComponent,
+        //CursosComponent,
+        //GruposComponent,
+        //InstructoresComponent,
+        //ComentariosComponent,
     ],
     imports: [
         BrowserModule,

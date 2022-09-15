@@ -1,0 +1,78 @@
+<div class="mat-dialog-header">
+    <h2 class="mb-2" mat-dialog-title>
+        {{ data.title }} Cometarios
+    </h2>
+    <button mat-icon-button mat-dialog-close>
+        <mat-icon [svgIcon]="'heroicons_outline:x'"></mat-icon>
+    </button>
+</div>
+
+<form  [formGroup]="form" class="flex flex-col mt-0 pb-4 overflow-hidden custom-mat-form">
+    <mat-accordion multi>
+        <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <strong>INFORMACIÓN</strong>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+
+
+            <div class="grid md:grid-cols-8 sm:grid-cols-4 gap-x-6 w-full">
+                <div class="md:col-span-4 sm:col-span-2">
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Email</mat-label>
+                        <input matInput 
+               
+                        formControlName="email" />
+
+                        <mat-error >
+                            <span >Campo requerido.</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="md:col-span-4 sm:col-span-2">
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Fecha de Ingreso</mat-label>
+                        <input 
+                        formControlName="fecha"
+                        matInput [matDatepicker]="picker">
+                        <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>            
+                    </div> 
+                <div class="md:col-span-8 sm:col-span-2">
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Mensaje</mat-label>
+                        <input matInput 
+               
+                        formControlName="mensaje" />
+
+                        <mat-error >
+                            <span >Campo requerido.</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            
+        </div>
+
+        </mat-expansion-panel>
+    </mat-accordion>
+
+</form>
+<mat-dialog-actions align="end">
+    <button mat-stroked-button mat-dialog-close>
+        <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+        Cancelar
+    </button>
+    <button 
+        
+        type="button"
+        class="ml-3"
+        mat-flat-button
+        (click)="onSubmit()"  [color]="'primary'">
+        <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_outline:save'"></mat-icon>
+        Save
+    </button>
+
+</mat-dialog-actions>

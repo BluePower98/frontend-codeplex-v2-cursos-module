@@ -24,6 +24,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CustomMatInputComponent } from '../material/custom-mat-input/custom-mat-input.component';
 import { ErrorMessagesComponent } from './error-messages/error-messages.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatTableModule,
     MatBadgeModule,
     MatProgressSpinnerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     MatButtonModule,
@@ -76,7 +80,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatBadgeModule,
     MatProgressSpinnerModule,
     CustomMatInputComponent,
-    ErrorMessagesComponent
+    ErrorMessagesComponent,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class MaterialModule { }

@@ -50,6 +50,7 @@ export class FuseVerticalNavigationBasicItemComponent implements OnInit, OnDestr
             if (this.fuseConfigService.getModeOpenMenuOptions() === MenuOptions.newWindow) {
                 window.open(`${window.location.origin}${item.link}`, '_blank');
             } else {
+                console.log('[item.link',item.link);
                 this.router.navigate([item.link]);
             }
         };

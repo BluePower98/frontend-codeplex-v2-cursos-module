@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { CURSOS_ROUTES } from './cursos/cursos.routes';
 import { MAINTAINERS_ROUTES } from './maintainers/maintainers.routes';
 
 export const DASHBOARD_ROUTES: Routes = [
@@ -29,5 +30,9 @@ export const DASHBOARD_ROUTES: Routes = [
     {
       path: 'Logistica.Net/Mantenedores',
       children: MAINTAINERS_ROUTES
+    },
+    {
+      path: 'Cursos/Mantenedores',
+      children:CURSOS_ROUTES
     },
   ];

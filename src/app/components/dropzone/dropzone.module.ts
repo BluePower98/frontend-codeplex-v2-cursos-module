@@ -11,6 +11,9 @@ import {
 import { DropzoneUtils } from '@utils/dropzone.util';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { SharedComponentsModule } from '@components/shared/shared-components.module';
+import { PipesModule } from '@pipes/pipes.module';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   url: 'https://httpbin.org/post',
@@ -27,7 +30,10 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     CommonModule,
     MatIconModule,
     MatDialogModule,
-    DropzoneModulePlugin
+    DropzoneModulePlugin,
+    MatButtonModule,
+    SharedComponentsModule,
+    PipesModule
   ],
   providers: [
     {

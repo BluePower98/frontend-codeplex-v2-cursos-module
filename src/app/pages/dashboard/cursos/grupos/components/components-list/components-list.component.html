@@ -1,0 +1,51 @@
+<div class="mt-4">
+    <table 
+        datatable
+        [dtOptions]="dtOptions"
+        class="stripe"
+        style="width:100%">
+    </table>
+</div>
+
+<ng-template #dtHeaderButtons>
+    <button
+        mat-flat-button
+        (click)="add()"
+        [color]="'primary'">
+        <mat-icon
+        class="icon-size-5 mr-2"
+        [svgIcon]="'heroicons_solid:plus'"></mat-icon>
+        Nuevo registro
+    </button>
+</ng-template>
+
+<ng-template #dtRowActions let-data="data">
+    <div class="dt-row-actions">
+        <button mat-icon-button (click)="onEdit(data)">
+            <mat-icon class="icon-size-5"  [svgIcon]="'heroicons_outline:pencil-alt'"></mat-icon>
+        </button>
+        <button mat-icon-button (click)="onDelete(data)">
+            <mat-icon class="icon-size-5"  [svgIcon]="'heroicons_outline:trash'"></mat-icon>
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #dtHeaderFilters>
+    <tr class="dt-filters-head">
+        <th *ngFor="let column of dtOptions.columns | datatablesMapColumns: columnsSearchType" 
+            [ngStyle]="{'display': column.has_display_none ? 'none' : ''}">
+            <ng-container *ngIf="column.visible && column.searchable; else columnNoVisible">
+                <input 
+                    [class]="'filter-number-' + column.index"
+                    [attr.data-filter-type]="column.filter_type"
+                    type="text" 
+                    (keyup)="onInputChangedFilter($event.target.value, column.index, column.filter_type)"
+                    placeholder="" />
+            </ng-container>
+        
+            <ng-template #columnNoVisible>
+                &nbsp;
+            </ng-template>
+        </th>
+    </tr>
+</ng-template>
