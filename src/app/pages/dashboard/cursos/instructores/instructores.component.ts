@@ -42,8 +42,7 @@ export class InstructoresComponent implements OnInit {
       })
     })
     console.log(data);
-    
-    // this.editForm.emit(data);
+  
   }
 
   onDelete(data:any)

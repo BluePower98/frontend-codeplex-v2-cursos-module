@@ -16,7 +16,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 })
 export class InstructoresModalComponent implements OnInit {
 
-  @ViewChild(BasicInformationFormComponent, {static: true}) productsFormComponent: BasicInformationFormComponent;
+  @ViewChild(BasicInformationFormComponent, { static: true }) productsFormComponent: BasicInformationFormComponent;
 
   addedFiles: File[] = [];
   productImages: any[] = [];
@@ -24,16 +24,16 @@ export class InstructoresModalComponent implements OnInit {
   ruc: string;
   selectedTabIndex: number = 0;
   form: FormGroup;
-  listaUbigeo:any[]=[];
-  isNewRegister:boolean;
+  listaUbigeo: any[] = [];
+  isNewRegister: boolean;
   opcionRegistrar: boolean = false;
-  opcionEditar:boolean = false;
+  opcionEditar: boolean = false;
 
   constructor(
     private InstructoresService: InstructoresService,
     private toastNotificationService: ToastNotificationService,
     private httpErrorHandlerService: HttpErrorHandlerService,
-    private sweetAlertService: SweetAlertService, 
+    private sweetAlertService: SweetAlertService,
     private fuseSplashScreenService: FuseSplashScreenService,
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<InstructoresModalComponent>,
@@ -43,17 +43,16 @@ export class InstructoresModalComponent implements OnInit {
   ngOnInit(): void {
     this.companyId = sessionStorage.getItem('idempresa');
     this.buildForm();
-    this.isNewRegister =!this.data.edit;
+    this.isNewRegister = !this.data.edit;
 
-    if(!this.isNewRegister){
-      console.log('gg',this.data)
+    if (!this.isNewRegister) {
+      console.log('gg', this.data)
       this.form.patchValue(this.data.item[0]);
       this.opcionEditar = true;
-  }
- if(this.isNewRegister){
-// opcionRegistrar: boolean = ;
-this.opcionRegistrar=true;
- }
+    }
+    if (this.isNewRegister) {
+      this.opcionRegistrar = true;
+    }
   }
 
   onSelectedTabChange($event: MatTabChangeEvent) {
@@ -61,13 +60,13 @@ this.opcionRegistrar=true;
   }
 
 
-   
+
   private buildForm(): void {
     this.form = this.fb.group({
       idempresa: this.companyId,
       idinstructor: [],
-      apellidos: ['',Validators.required],
-      nombres: ['',Validators.required],
+      apellidos: ['', Validators.required],
+      nombres: ['', Validators.required],
       foto: [''],
       detalle: [''],
       activo: [true]
@@ -77,23 +76,23 @@ this.opcionRegistrar=true;
   onUpdateFiles(files: File[]): void {
     this.addedFiles = files;
   }
-  
 
-  onSubmit(){
+
+  onSubmit() {
     const body = this.form.value;
     console.log(body, "Hola Mundo");
     const path_certificado = `FotoInstructor`;
-    if(this.opcionRegistrar){
-      if(this.form.invalid){
+    if (this.opcionRegistrar) {
+      if (this.form.invalid) {
         this.form.markAllAsTouched();
         return;
       }
 
-      this.InstructoresService.RegistrarInstructores(body, this.addedFiles, path_certificado).subscribe(Response=>{this.toastNotificationService.success(Response.message);this.dialogRef.close({ resetPaging: this.data.edit });})
+      this.InstructoresService.RegistrarInstructores(body, this.addedFiles, path_certificado).subscribe(Response => { this.toastNotificationService.success(Response.message); this.dialogRef.close({ resetPaging: this.data.edit }); })
     }
 
-    if(this.opcionEditar){
-      this.InstructoresService.EditarInstructores(this.data.item[0].idempresa, this.data.item[0].idinstructor, body).subscribe(Response=>{this.toastNotificationService.success(Response.message);this.dialogRef.close({ resetPaging: this.data.edit });})
+    if (this.opcionEditar) {
+      this.InstructoresService.EditarInstructores(this.data.item[0].idempresa, this.data.item[0].idinstructor, body).subscribe(Response => { this.toastNotificationService.success(Response.message); this.dialogRef.close({ resetPaging: this.data.edit }); })
     }
 
   }

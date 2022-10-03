@@ -13,51 +13,48 @@ import { SweetAlertService } from '@services/ui/sweet-alert.service';
 export class AlumnosComponent implements OnInit {
   [x: string]: any;
 
-  @ViewChild(ComponentListComponent, {static: false}) ComponentListComponent: ComponentListComponent
+  @ViewChild(ComponentListComponent, { static: false }) ComponentListComponent: ComponentListComponent
 
   constructor(
     private dialog: MatDialog,
     private CursosService: CursosService,
     private sweetAlertService: SweetAlertService
-    ) { }
-  ComponentModalComponent:any;
+  ) { }
+  ComponentModalComponent: any;
 
   ngOnInit(): void {
   }
 
-  addAlumnos(dato:any){
+  addAlumnos(dato: any) {
     console.log("clixk2");
     this.openModalForm({
       title: 'Registrar',
       edit: false,
-     
+
     });
   }
 
   onEdit(data: any): void {
     console.log(data);
-    this.CursosService.TraerData(data.idempresa,data.idalumno).subscribe(Response=>{
+    this.CursosService.TraerData(data.idempresa, data.idalumno).subscribe(Response => {
       this.openModalForm({
-        title:'Editar',
-        edit:true,
-        item:Response
+        title: 'Editar',
+        edit: true,
+        item: Response
       })
     })
     console.log(data);
-    
-    // this.editForm.emit(data);
   }
 
-  onDelete(data:any)
-  {
+  onDelete(data: any) {
     console.log("hola");
     const { idempresa, idalumno } = data
- this.sweetAlertService.confirm('¿Esta seguro de hacer esta accion?')
-      .then((rsult)=>{
-        if(rsult.isConfirmed){
+    this.sweetAlertService.confirm('¿Esta seguro de hacer esta accion?')
+      .then((rsult) => {
+        if (rsult.isConfirmed) {
 
-          this.CursosService.EliminarAlumno(idempresa,idalumno).subscribe(Response=>{
-            
+          this.CursosService.EliminarAlumno(idempresa, idalumno).subscribe(Response => {
+
             this.sweetAlertService.success('El Alumno fue eliminado Correctamente');
             this.ComponentListComponent.reloadTable(true);
 
@@ -90,7 +87,7 @@ export class AlumnosComponent implements OnInit {
       this.ComponentListComponent.reloadTable(res.resetPaging);
     });
 
-    
+
   }
 
 }

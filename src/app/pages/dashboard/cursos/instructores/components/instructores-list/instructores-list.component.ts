@@ -82,7 +82,6 @@ export class InstructoresListComponent implements OnInit, AfterViewInit {
   };
     
   onEdit(data: any): void {
-    // console.log(data);
     this.editForm.emit(data);
   }
 

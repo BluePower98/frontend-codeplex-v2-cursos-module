@@ -151,7 +151,7 @@ export class ComponentsListComponent implements OnInit, AfterViewInit {
           title: 'Nombres',
           data: 'nombre',
           name: 'T1.nombre',
-          className: 'dt-body-center dt-row-ellipsis',
+          className: 'dt-row-ellipsis',
         },
         {
           title: 'Fecha de Inicio',
@@ -169,13 +169,13 @@ export class ComponentsListComponent implements OnInit, AfterViewInit {
           title: 'Duración',
           data: 'duracion',
           name: 'T1.duracion',
-          className: 'dt-body-center',
+          className: 'dt-row-ellipsis',
         },
         {
           title: 'Beneficios',
           data: 'beneficios',
           name: 'T1.beneficios',
-          className: 'dt-body-center',
+          className: 'dt-row-ellipsis',
         },
         {
           

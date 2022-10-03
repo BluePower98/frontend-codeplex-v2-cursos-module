@@ -7,7 +7,8 @@ import { HttpErrorHandlerService } from '@core/services/http-error-handler.servi
 import { SweetAlertService } from '@services/ui/sweet-alert.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-
+import * as moment from 'moment';
+import { Moment } from 'moment';
 
 @Component({
   selector: 'app-grupos-modal',
@@ -16,7 +17,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 })
 export class GruposModalComponent implements OnInit {
 
-  @ViewChild(BasicInformationFormComponent, {static: true}) productsFormComponent: BasicInformationFormComponent;
+  @ViewChild(BasicInformationFormComponent, { static: true }) productsFormComponent: BasicInformationFormComponent;
 
   addedFiles: File[] = [];
   productImages: any[] = [];
@@ -24,12 +25,12 @@ export class GruposModalComponent implements OnInit {
   ruc: string;
   selectedTabIndex: number = 0;
   form: FormGroup;
-  listaUbigeo:any[]=[];
-  isNewRegister:boolean;
+  listaUbigeo: any[] = [];
+  isNewRegister: boolean;
   opcionRegistrar: boolean = false;
-  opcionEditar:boolean = false;
-  listacursos:any[]=[];
-  listaModenas:any[]=[];
+  opcionEditar: boolean = false;
+  listacursos: any[] = [];
+  listaModenas: any[] = [];
 
   constructor(
     private GruposService: GruposService,
@@ -43,39 +44,43 @@ export class GruposModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.companyId = sessionStorage.getItem('idempresa');
-    
+
     this.buildForm();
     this.loadcursos();
     this.loadMonedas();
 
-    this.isNewRegister =!this.data.edit;
+    let fecha2;
+    fecha2 = moment(new Date()).format('YYYY-MM-DD');
+    this.form.patchValue({ fecha_inicio: fecha2 });
 
-    if(!this.isNewRegister){
-      console.log('gg',this.data)
+    this.isNewRegister = !this.data.edit;
+
+    if (!this.isNewRegister) {
+      console.log('gg', this.data)
       this.form.patchValue(this.data.item[0]);
       this.opcionEditar = true;
-  }
- if(this.isNewRegister){
-// opcionRegistrar: boolean = ;
-this.opcionRegistrar=true;
- }
+    }
+    if (this.isNewRegister) {
+      // opcionRegistrar: boolean = ;
+      this.opcionRegistrar = true;
+    }
   }
 
   onSelectedTabChange($event: MatTabChangeEvent) {
     this.selectedTabIndex = $event.index;
   }
 
-  loadcursos(){
-    this.GruposService.TraerCursos(this.companyId).subscribe(Response=>{this.listacursos = Response})
+  loadcursos() {
+    this.GruposService.TraerCursos(this.companyId).subscribe(Response => { this.listacursos = Response })
   }
 
-  loadMonedas(){
-    this.GruposService.TraerMonedas().subscribe(Response=>{this.listaModenas = Response;console.log(Response);})
-    
+  loadMonedas() {
+    this.GruposService.TraerMonedas().subscribe(Response => { this.listaModenas = Response; console.log(Response); })
+
   }
 
-  get f(): {[key: string]: FormControl} {
-    return this.form.controls as {[key: string]: FormControl};
+  get f(): { [key: string]: FormControl } {
+    return this.form.controls as { [key: string]: FormControl };
   }
   private buildForm(): void {
     this.form = this.fb.group({
@@ -83,31 +88,31 @@ this.opcionRegistrar=true;
       idgrupo: [],
       idcurso: [],
       nombre: [],
-      fecha_inicio: ['',Validators.required],
-      fecha_fin: ['',Validators.required],
-      duracion: ['',Validators.required],
-      horario: ['',Validators.required],
-      beneficios: ['',Validators.required],
-      costo: ['',Validators.required],
+      fecha_inicio: ['', Validators.required],
+      fecha_fin: ['', Validators.required],
+      duracion: ['', Validators.required],
+      horario: ['', Validators.required],
+      beneficios: ['', Validators.required],
+      costo: ['', Validators.required],
       idmoneda: [1],
       activo: [true]
     });
   }
 
-  onSubmit(){
+  onSubmit() {
     const body = this.form.value;
     console.log(body, "Hola Mundo");
-    if(this.opcionRegistrar){
-      if(this.form.invalid){
+    if (this.opcionRegistrar) {
+      if (this.form.invalid) {
         this.form.markAllAsTouched();
         return;
       }
 
-      this.GruposService.registrarGrupos(body).subscribe(Response=>{this.toastNotificationService.success(Response.message);this.dialogRef.close({ resetPaging: this.data.edit });})
+      this.GruposService.registrarGrupos(body).subscribe(Response => { this.toastNotificationService.success(Response.message); this.dialogRef.close({ resetPaging: this.data.edit }); })
 
     }
-    if(this.opcionEditar){
-      this.GruposService.EditarGrupos(this.data.item[0].idempresa, this.data.item[0].idgrupo, body).subscribe(Response=>{this.toastNotificationService.success(Response.message);this.dialogRef.close({ resetPaging: this.data.edit });})
+    if (this.opcionEditar) {
+      this.GruposService.EditarGrupos(this.data.item[0].idempresa, this.data.item[0].idgrupo, body).subscribe(Response => { this.toastNotificationService.success(Response.message); this.dialogRef.close({ resetPaging: this.data.edit }); })
     }
   }
 

@@ -89,6 +89,10 @@ export class ComponentsListComponent implements OnInit, AfterViewInit {
     this.editForm.emit(data);
   }
 
+  onDelete(data: any): void {
+    this.delete.emit(data);
+  }
+  
   reloadTable(resetPaging: boolean): void {
     this.dtInstance.ajax.reload(((json: any) => {
       console.log('reload', json);

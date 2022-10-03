@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 const BASE_URL = environment.apiBaseUrl;
 
-const ENDPOINT_URL = `${BASE_URL}/v1/Cursos_Grupos`;
+const ENDPOINT_URL = `${BASE_URL}/v1/ModuleCourse-Groups`;
 
 declare const $: any;
 

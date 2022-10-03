@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 const BASE_URL = environment.apiBaseUrl;
 
-const ENDPOINT_URL = `${BASE_URL}/v1/Cursos_Cursos`;
+const ENDPOINT_URL = `${BASE_URL}/v1/ModuleCourse-Courses`;
 
 declare const $: any;
 
@@ -30,6 +30,12 @@ export class CursoService {
   EditarCurso(idempresa:string, idcurso:string, body:any){
     const url = `${ENDPOINT_URL}/${idempresa}/${idcurso}`;
     return this.http.put<any>(url, body);
+  }
+
+  EliminarCurso(idempresa:string, idcurso:string){
+    const url = `${ENDPOINT_URL}/${idempresa}/${idcurso}`;
+
+    return this.http.delete<any>(url);
   }
 
   TraerData(idempresa:string, idcurso:string){

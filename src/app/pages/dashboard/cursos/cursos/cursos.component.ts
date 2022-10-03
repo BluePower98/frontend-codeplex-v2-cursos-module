@@ -12,39 +12,55 @@ import { CursosModalComponent } from './components/cursos-modal/cursos-modal.com
 })
 export class CursosComponent implements OnInit {
 
-  @ViewChild(ComponentsListComponent, {static: false}) ComponentsListComponent: ComponentsListComponent
+  @ViewChild(ComponentsListComponent, { static: false }) ComponentsListComponent: ComponentsListComponent
 
   constructor(
     private dialog: MatDialog,
     private CursoService: CursoService,
     private sweetAlertService: SweetAlertService
   ) { }
-  CursosModalComponent:any;
+  CursosModalComponent: any;
 
   ngOnInit(): void {
   }
 
-  addCursos(dato:any){
+  addCursos(dato: any) {
     console.log("clixk2");
     this.openModalForm({
       title: 'Registrar',
       edit: false,
-     
+
     });
   }
 
   onEdit(data: any): void {
     console.log(data);
-    this.CursoService.TraerData(data.idempresa,data.idcurso).subscribe(Response=>{
+    this.CursoService.TraerData(data.idempresa, data.idcurso).subscribe(Response => {
       this.openModalForm({
-        title:'Editar',
-        edit:true,
-        item:Response
+        title: 'Editar',
+        edit: true,
+        item: Response
       })
     })
     console.log(data);
-    
-    // this.editForm.emit(data);
+  }
+
+  onDelete(data:any)
+  {
+    console.log("hola");
+    const { idempresa, idcurso } = data
+ this.sweetAlertService.confirm('¿Esta seguro de hacer esta accion?')
+      .then((rsult)=>{
+        if(rsult.isConfirmed){
+
+          this.CursoService.EliminarCurso(idempresa,idcurso).subscribe(Response=>{
+            
+            this.sweetAlertService.success('El Curso fue eliminado Correctamente');
+            this.ComponentsListComponent.reloadTable(true);
+          })
+        }
+      })
+
   }
 
   private openModalForm(data: any): void {
@@ -70,7 +86,7 @@ export class CursosComponent implements OnInit {
       this.ComponentsListComponent.reloadTable(res.resetPaging);
     });
 
-    
+
   }
 
 }

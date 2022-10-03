@@ -19,7 +19,7 @@ import { Moment } from 'moment';
   styleUrls: ['./component-modal.component.scss']
 })
 export class ComponentModalComponent implements OnInit {
-  @ViewChild(BasicInformationFormComponent, {static: true}) productsFormComponent: BasicInformationFormComponent;
+  @ViewChild(BasicInformationFormComponent, { static: true }) productsFormComponent: BasicInformationFormComponent;
 
   addedFiles: File[] = [];
   productImages: any[] = [];
@@ -27,10 +27,10 @@ export class ComponentModalComponent implements OnInit {
   ruc: string;
   selectedTabIndex: number = 0;
   form: FormGroup;
-  listaUbigeo:any[]=[];
-  isNewRegister:boolean;
+  listaUbigeo: any[] = [];
+  isNewRegister: boolean;
   opcionRegistrar: boolean = false;
-  opcionEditar:boolean = false;
+  opcionEditar: boolean = false;
 
   constructor(private toastNotificationService: ToastNotificationService,
     private httpErrorHandlerService: HttpErrorHandlerService,
@@ -45,18 +45,20 @@ export class ComponentModalComponent implements OnInit {
     this.companyId = sessionStorage.getItem('idempresa');
     this.buildForm();
 
+    let fecha2;
+    fecha2 = moment(new Date()).format('YYYY-MM-DD');
+    this.form.patchValue({ fecha_registro: fecha2 });
 
-    this.isNewRegister =!this.data.edit;
+    this.isNewRegister = !this.data.edit;
 
-    if(!this.isNewRegister){
-      console.log('gg',this.data)
+    if (!this.isNewRegister) {
+      console.log('gg', this.data)
       this.form.patchValue(this.data.item[0]);
       this.opcionEditar = true;
-  }
- if(this.isNewRegister){
-// opcionRegistrar: boolean = ;
-this.opcionRegistrar=true;
- }
+    }
+    if (this.isNewRegister) {
+      this.opcionRegistrar = true;
+    }
   }
 
   onSelectedTabChange($event: MatTabChangeEvent) {
@@ -67,11 +69,11 @@ this.opcionRegistrar=true;
     this.form = this.fb.group({
       idempresa: this.companyId,
       idalumno: [],
-      rucdni: ['',Validators.required],
+      rucdni: ['', Validators.required],
       apellidos: [''],
       nombres: [''],
       foto: [''],
-      fecha_registro: ['',Validators.required],
+      fecha_registro: ['', Validators.required],
       activo: [true],
     });
   }
@@ -82,26 +84,25 @@ this.opcionRegistrar=true;
 
 
   onSubmit() {
-    
-    let fecha_registro=moment(this.form.get('fecha_registro')?.value).format('YYYY-MM-DD');
-    // this.form.patchValue({fecha:fecha2});
-    
-    const body = {...this.form.value,fecha_registro};
+
+    let fecha_registro = moment(this.form.get('fecha_registro')?.value).format('YYYY-MM-DD');
+
+    const body = { ...this.form.value, fecha_registro };
     console.log(body, "Hola Mundo");
-    const path_certificado=`FotoAlumno`;
-    if(this.opcionRegistrar){
-      if(this.form.invalid){
+    const path_certificado = `FotoAlumno`;
+    if (this.opcionRegistrar) {
+      if (this.form.invalid) {
         this.form.markAllAsTouched();
         return;
       }
 
-      this.CursosService.RegistrarAlumnos(body,this.addedFiles, path_certificado).subscribe(Response=>{this.toastNotificationService.success(Response.message);this.dialogRef.close({ resetPaging: this.data.edit });})
+      this.CursosService.RegistrarAlumnos(body, this.addedFiles, path_certificado).subscribe(Response => { this.toastNotificationService.success(Response.message); this.dialogRef.close({ resetPaging: this.data.edit }); })
 
     }
-    if(this.opcionEditar){
-      this.CursosService.EditarAlumno(this.data.item[0].idempresa, this.data.item[0].idalumno, body).subscribe(Response=>{this.toastNotificationService.success(Response.message);this.dialogRef.close({ resetPaging: this.data.edit });})
+    if (this.opcionEditar) {
+      this.CursosService.EditarAlumno(this.data.item[0].idempresa, this.data.item[0].idalumno, body).subscribe(Response => { this.toastNotificationService.success(Response.message); this.dialogRef.close({ resetPaging: this.data.edit }); })
     }
   }
-  
+
 
 }
